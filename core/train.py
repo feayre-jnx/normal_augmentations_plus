@@ -89,8 +89,13 @@ def train(net, criterion, optimizer, trainloader, epoch=None, **options):
             optimizer.zero_grad()
 
             _, y = net(inputs, True)
-            loss = criterion(y[:batch_size], targets) #+ criterion(y[batch_size:], targets)
-            
+
+            ## if aprp is activated, consider the additional input_mix in the loss evaluation
+            if options['aprp']:
+                loss = criterion(y[:batch_size], targets) + criterion(y[batch_size:], targets)
+            else:
+                loss = criterion(y[:batch_size], targets)
+
             loss.backward()
             optimizer.step()
         

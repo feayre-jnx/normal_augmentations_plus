@@ -18,18 +18,6 @@ class AMPAdjust(object):
         :return: code img (PIL Image): Image
         '''
 
-        #p = random.uniform(0, 1)
-        #if p > 0.5:
-        #    op = np.random.choice(self.aug_list)
-        #    x = op(x, 3)
-
-        #op = np.random.choice(self.aug_list)
-        #x = op(x, 3)
-
-        p = random.uniform(0, 1)
-        if p > 0.5:
-            return x
-
         x = np.array(x).astype(np.uint8) 
         
         fft_1 = np.fft.fftshift(np.fft.fftn(x))

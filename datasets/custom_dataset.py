@@ -141,9 +141,9 @@ class CIFAR100D(object):
         self.num_classes = 100
 
 class CustomDataset(object):
-    def __init__(self, dataroot='', use_gpu=True, num_workers=1, batch_size=128, _transforms='', _eval=False, input_size=224, alb_policy=None):
+    def __init__(self, dataroot='', use_gpu=True, num_workers=1, batch_size=128, _transforms='', _eval=False, input_size=224, alb_policy=None, aug_set=None):
 
-        transforms_list = train_transforms(_transforms, input_size, alb_policy=alb_policy)
+        transforms_list = train_transforms(_transforms, input_size, alb_policy=alb_policy, aug_set=aug_set)
 
         train_transform = transforms.Compose(transforms_list)
         test_transform = test_transforms(input_size)
@@ -151,9 +151,6 @@ class CustomDataset(object):
 
         pin_memory = True if use_gpu else False
 
-        ##data_root = os.path.join(dataroot, 'cifar10')
-
-        ##custom_dataset = torchvision.datasets.ImageFolder(root=data_dir['cifar-train'], transform=normal_transform['train'])
         trainset = ImageFolder(root=dataroot['train'], transform=train_transform)
         
         self.train_loader = torch.utils.data.DataLoader(
@@ -177,19 +174,5 @@ class CustomDataset(object):
                 num_workers=num_workers, pin_memory=pin_memory,
             )
 
-            # self.out_loaders = dict()
-            # self.out_keys = ['gaussian_noise', 'shot_noise', 'impulse_noise', 'defocus_blur',
-            #                 'glass_blur', 'motion_blur', 'zoom_blur', 'snow', 'frost', 'fog',
-            #                 'brightness', 'contrast', 'elastic_transform', 'pixelate',
-            #                 'jpeg_compression']
-
-            # data_root = os.path.join(dataroot, 'CIFAR-10-C')
-            # for key in self.out_keys:
-            #     outset = CIFARC(root=data_root, key=key, transform=test_transform)
-            #     out_loader = torch.utils.data.DataLoader(
-            #         outset, batch_size=batch_size, shuffle=False,
-            #         num_workers=num_workers, pin_memory=pin_memory,
-            #     )
-            #     self.out_loaders[key] = out_loader
         
         self.num_classes = 7

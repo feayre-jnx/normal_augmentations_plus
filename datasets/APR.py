@@ -2,29 +2,53 @@ import io
 import random
 from PIL import Image
 import numpy as np
-#import datasets.augmentations as augmentations
-import datasets.augmentations_faa_version as augmentations
+import datasets.augmentations as augmentations
 
 class APRecombination(object):
-    def __init__(self, img_size=32, aug=None):
+    def __init__(self, img_size=32, aug=None, just_aug=False):
         if aug is None:
             augmentations.IMAGE_SIZE = img_size     ## Does not have any meaning, change the value directly from the function
             self.aug_list = augmentations.augmentations
+
+        elif aug == 'geo-photo':
+            self.aug_list = augmentations.augmentations_pil_ver_geo_photo
+
+        elif aug == 'geo-photo-k':
+            self.aug_list = augmentations.augmentations_kornia_ver_geo_photo
+        
+        elif aug == 'geo':
+            self.aug_list = augmentations.augmentations_pil_ver_geo
+
+        elif aug == 'photo':
+            self.aug_list = augmentations.augmentations_pil_ver_photo
+
+        elif aug == 'geo-k':
+            self.aug_list = augmentations.augmentations_kornia_ver_geo
+
+        elif aug == 'photo-k':
+            self.aug_list = augmentations.augmentations_kornia_ver_photo
+
         else:
             self.aug_list = aug.augmentations
+        
+        self.just_aug = just_aug
 
     def __call__(self, x):
         '''
         :param img: (PIL Image): Image
         :return: code img (PIL Image): Image
         '''
+        
+        ## the options['main_aug'] = normal (i.e., no aprs, just augmentations)
+        if self.just_aug:
+            op = np.random.choice(self.aug_list)
+            x = op(x, 3)
+            return x
 
+        ## This is the APRS implementation. It always starts with the augmentation of the image and then recombination
+        
         op = np.random.choice(self.aug_list)
         x = op(x, 3)
-
-        p = 1#random.uniform(0, 1)
-        if p > 0.5:
-            return x
 
         x_aug = x.copy()
         op = np.random.choice(self.aug_list)
