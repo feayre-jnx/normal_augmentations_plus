@@ -3,7 +3,7 @@ import random
 from PIL import Image
 import numpy as np
 import datasets.augmentations as augmentations
-from common_corruption.imagecorruptions import corrupt
+
 
 class DSampAugmentationsApply(object):
     def __init__(self, img_size=32, aug=None):

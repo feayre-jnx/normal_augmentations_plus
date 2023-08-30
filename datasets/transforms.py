@@ -6,6 +6,13 @@ from datasets.AMP_ADJ import AMPAdjust
 #from datasets.alb_augmentations import AlbumentationsApply
 from datasets.cor_augmentations import ComCorAugmentationsApply
 from datasets.dsamp_augmentations import DSampAugmentationsApply
+from datasets.faa_augmentations import FAAAugmentationsApply
+
+
+normalize = transforms.Compose([
+        transforms.Normalize([0.4914, 0.4822, 0.4465], [0.2023, 0.1994, 0.2010]),
+        #transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
+    ])
 
 
 def train_transforms(_transforms, input_size=32, alb_policy=None, aug_set=None):
@@ -51,6 +58,12 @@ def train_transforms(_transforms, input_size=32, alb_policy=None, aug_set=None):
             transforms_list.extend([
                 transforms.RandomApply([AlbumentationsApply(img_size=input_size, alb_policy=alb_policy)], p=i[1])
             ])
+
+        elif i[0] == 'faa':
+            print('FasterAutoAugment', i)
+            transforms_list.extend([
+                transforms.RandomApply([FAAAugmentationsApply(img_size=input_size)], p=i[1])
+            ])
     
     ## closing transforms
     transforms_list.extend([
@@ -58,6 +71,9 @@ def train_transforms(_transforms, input_size=32, alb_policy=None, aug_set=None):
                 transforms.RandomHorizontalFlip(),
                 transforms.ToTensor(),
             ])
+    
+    if len(_transforms) == 0:
+        print('No Augmentations')
 
     return transforms_list
 
