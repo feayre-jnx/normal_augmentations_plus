@@ -14,7 +14,7 @@ This notebook provides the code for training a network with the following augmen
 
 ## Usage Instructions: 
 1. Install the anaconda environment -> environment.yml 
-    * conda env create -f environment.yaml
+    * conda env create -f environment.yml
 2. Open the main.ipynb notebook
 <br><br>
 

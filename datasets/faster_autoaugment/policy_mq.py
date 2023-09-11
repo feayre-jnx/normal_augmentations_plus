@@ -128,9 +128,9 @@ class Policy(nn.Module):
             Solarize(),
             Posterize(),
             #Contrast(),
-            #Saturate(),    ## has an error with MQ dataset: not enough values to unpack (expected 3, got 1)
+            #Saturate(),    
             Brightness(),
-            #Sharpness(),   ## has an error with MQ dataset: 5D tensors something
+            #Sharpness(),   
             AutoContrast(),
             Equalize(),
         ] 

@@ -1,5 +1,3 @@
-import io
-import random
 from PIL import Image
 import numpy as np
 import datasets.augmentations as augmentations

@@ -1,4 +1,4 @@
-name: apr-kornia
+name: normal_aug_plus
 channels:
   - pytorch
   - nvidia
@@ -245,4 +245,4 @@ dependencies:
       - opencv-python==4.7.0.72
       - torchaudio==2.0.0
       - torchvision==0.15.0
-prefix: D:\anaconda3\envs\apr-kornia
+prefix: D:\anaconda3\envs\normalaugplus

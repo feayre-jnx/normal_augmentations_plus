@@ -1,5 +1,3 @@
-from PIL import Image
-import numpy as np
 import datasets.augmentations as augmentations
 from .faster_autoaugment.policy_mq import Policy
 import torchvision.transforms as transforms
@@ -13,6 +11,13 @@ class FAAAugmentationsApply(object):
         else:
             self.aug_list = aug.augmentations
 
+        path = 'datasets/faster_autoaugment/policy_weights/19_mq_hq.pt'
+        num_chunks = 16
+
+        policy_weight = torch.load(path, map_location='cpu')
+        self.policy = Policy.faster_auto_augment_policy(num_chunks=num_chunks, **policy_weight['policy_kwargs'])
+        self.policy.load_state_dict(policy_weight['policy'])
+
     def __call__(self, x):
         '''
         :param img: (PIL Image): Image
@@ -20,15 +25,9 @@ class FAAAugmentationsApply(object):
         '''
         
         ## FAA augmentation
-        path = 'datasets/faster_autoaugment/policy_weights/19_mq4.pt'
-        num_chunks = 16
-
         x = transforms.ToTensor()(x).unsqueeze(0)
-        policy_weight = torch.load(path, map_location='cpu')
-        policy = Policy.faster_auto_augment_policy(num_chunks=num_chunks, **policy_weight['policy_kwargs'])
-        policy.load_state_dict(policy_weight['policy'])
-
-        x_aug = policy(policy.denormalize_(x))
+        x_aug = self.policy(self.policy.denormalize_(x))
+        #x_aug = self.policy(x)
 
         output = transforms.ToPILImage()(x_aug[0].squeeze(0))
 

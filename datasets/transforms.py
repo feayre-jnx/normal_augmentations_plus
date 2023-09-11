@@ -52,17 +52,17 @@ def train_transforms(_transforms, input_size=32, alb_policy=None, aug_set=None):
                 transforms.RandomApply([DSampAugmentationsApply(img_size=input_size)], p=i[1])
             ])
 
+        elif i[0] == 'faa':
+            print('FasterAutoAugment', i)
+            transforms_list.extend([
+                transforms.RandomApply([FAAAugmentationsApply(img_size=input_size)], p=i[1])
+            ])
+
         ## experimental extension
         elif i[0] == 'album':
             print('Albumentations', i)
             transforms_list.extend([
                 transforms.RandomApply([AlbumentationsApply(img_size=input_size, alb_policy=alb_policy)], p=i[1])
-            ])
-
-        elif i[0] == 'faa':
-            print('FasterAutoAugment', i)
-            transforms_list.extend([
-                transforms.RandomApply([FAAAugmentationsApply(img_size=input_size)], p=i[1])
             ])
     
     ## closing transforms
