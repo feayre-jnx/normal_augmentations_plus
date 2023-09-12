@@ -1,12 +1,12 @@
 import datasets.augmentations as augmentations
-from .faster_autoaugment.policy_mq import Policy
+from .faster_autoaugment.policy import Policy
 import torchvision.transforms as transforms
 import torch
 
 class FAAAugmentationsApply(object):
     def __init__(self, img_size=32, aug=None):
         if aug is None:
-            augmentations.IMAGE_SIZE = img_size     ## Does not have any meaning, change the value directly from the function
+            augmentations.IMAGE_SIZE = img_size     ## Does not take into effect, change the value directly from the function inside augmentations.py
             self.aug_list = augmentations.augmentations
         else:
             self.aug_list = aug.augmentations
@@ -27,7 +27,6 @@ class FAAAugmentationsApply(object):
         ## FAA augmentation
         x = transforms.ToTensor()(x).unsqueeze(0)
         x_aug = self.policy(self.policy.denormalize_(x))
-        #x_aug = self.policy(x)
 
         output = transforms.ToPILImage()(x_aug[0].squeeze(0))
 

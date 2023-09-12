@@ -6,6 +6,7 @@ This notebook provides the code for training a network with the following augmen
 * Downsampling
 * Common Corruptions
 * Amplitude-Phase Recombination
+* Faster AutoAugment
 <br><br>
 
 ## Author Notes: 
@@ -21,3 +22,4 @@ This notebook provides the code for training a network with the following augmen
 ## References:
 * Amplitude-Phase Recombination: https://github.com/iCGY96/APR
 * Common Corruptions: https://github.com/bethgelab/imagecorruptions
+* Faster AutoAugment: https://github.com/moskomule/dda/tree/master/faster_autoaugment

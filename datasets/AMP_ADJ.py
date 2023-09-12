@@ -5,7 +5,7 @@ import datasets.augmentations as augmentations
 class AMPAdjust(object):
     def __init__(self, img_size=32, aug=None):
         if aug is None:
-            augmentations.IMAGE_SIZE = img_size     ## Does not have any meaning, change the value directly from the function
+            augmentations.IMAGE_SIZE = img_size     ## Does not take into effect, change the value directly from the function inside augmentations.py
             self.aug_list = augmentations.augmentations
         else:
             self.aug_list = aug.augmentations
@@ -15,7 +15,7 @@ class AMPAdjust(object):
         :param img: (PIL Image): Image
         :return: code img (PIL Image): Image
         '''
-
+        
         x = np.array(x).astype(np.uint8) 
         
         fft_1 = np.fft.fftshift(np.fft.fftn(x))

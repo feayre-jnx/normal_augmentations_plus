@@ -158,7 +158,6 @@ def rotate(img: torch.Tensor,
            mag: torch.Tensor) -> torch.Tensor:
     
     mag = torch.Tensor([np.random.uniform(low=1, high=30)])
-    #degrees = int_parameter(sample_level(mag), 30)
     if np.random.uniform() > 0.5:
       mag = -1 *mag
     
@@ -198,7 +197,6 @@ def shear_x(img: torch.Tensor,
             mag: torch.Tensor) -> torch.Tensor:
     
     mag = torch.Tensor([np.random.uniform(low=0.1, high=1)])
-    #mag = float_parameter(sample_level(mag), 0.3)
     if np.random.uniform() > 0.5:
       mag = -1 * mag
 
@@ -223,7 +221,6 @@ def shear_y(img: torch.Tensor,
             mag: torch.Tensor) -> torch.Tensor:
     
     mag = torch.Tensor([np.random.uniform(low=0.1, high=1)])
-    #mag = float_parameter(sample_level(mag), 0.3)
     if np.random.uniform() > 0.5:
       mag = -1 * mag
 
@@ -344,14 +341,6 @@ augmentations = [
     autocontrast_pil, equalize_pil, posterize_pil, rotate_pil, solarize_pil, shear_x_pil, shear_y_pil,
     translate_x_pil, translate_y_pil
 ]
-
-#augmentations = [
-#    autocontrast, equalize, posterize, solarize
-#]
-
-'''augmentations = [
-    posterize, solarize
-]'''
 
 autocontrast_apply = autocontrast
 

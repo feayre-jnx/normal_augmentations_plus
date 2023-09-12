@@ -6,7 +6,7 @@ from common_corruption.imagecorruptions import corrupt
 class ComCorAugmentationsApply(object):
     def __init__(self, img_size=32, aug=None):
         if aug is None:
-            augmentations.IMAGE_SIZE = img_size     ## Does not have any meaning, change the value directly from the function
+            augmentations.IMAGE_SIZE = img_size     ## Does not take into effect, change the value directly from the function inside augmentations.py
             self.aug_list = augmentations.augmentations
 
         else:
@@ -17,13 +17,6 @@ class ComCorAugmentationsApply(object):
         :param img: (PIL Image): Image
         :return: code img (PIL Image): Image
         '''
-        
-        ## normal augmentations
-
-        # p = random.uniform(0, 1)
-        # if p > (1-self.add_aug):
-        #     op = np.random.choice(self.aug_list)
-        #     x = op(x, 3)
 
         ## common corruptions augmentations
 

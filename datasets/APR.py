@@ -6,7 +6,7 @@ import datasets.augmentations as augmentations
 class APRecombination(object):
     def __init__(self, img_size=32, aug=None, just_aug=False):
         if aug is None:
-            augmentations.IMAGE_SIZE = img_size     ## Does not have any meaning, change the value directly from the function
+            augmentations.IMAGE_SIZE = img_size     ## Does not take into effect, change the value directly from the function inside augmentations.py
             self.aug_list = augmentations.augmentations
 
         elif aug == 'geo-photo':
