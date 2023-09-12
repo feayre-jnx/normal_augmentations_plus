@@ -138,9 +138,9 @@ class CIFAR100D(object):
         self.num_classes = 100
 
 class CustomDataset(object):
-    def __init__(self, dataroot='', use_gpu=True, num_workers=1, batch_size=128, _transforms='', _eval=False, input_size=224, alb_policy=None, aug_set=None):
+    def __init__(self, dataroot='', use_gpu=True, num_workers=1, batch_size=128, _transforms='', _eval=False, input_size=224, alb_policy=None, aug_set=None, faa_policy=None):
 
-        transforms_list = train_transforms(_transforms, input_size, alb_policy=alb_policy, aug_set=aug_set)
+        transforms_list = train_transforms(_transforms, input_size, alb_policy=alb_policy, aug_set=aug_set, faa_policy=faa_policy)
 
         train_transform = transforms.Compose(transforms_list)
         test_transform = test_transforms(input_size)

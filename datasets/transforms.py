@@ -15,7 +15,7 @@ normalize = transforms.Compose([
     ])
 
 
-def train_transforms(_transforms, input_size=32, alb_policy=None, aug_set=None):
+def train_transforms(_transforms, input_size=32, alb_policy=None, aug_set=None, faa_policy=None):
     transforms_list = []
 
     ## opening transforms
@@ -55,7 +55,7 @@ def train_transforms(_transforms, input_size=32, alb_policy=None, aug_set=None):
         elif i[0] == 'faa':
             print('FasterAutoAugment', i)
             transforms_list.extend([
-                transforms.RandomApply([FAAAugmentationsApply(img_size=input_size)], p=i[1])
+                transforms.RandomApply([FAAAugmentationsApply(img_size=input_size, policy_addr=faa_policy)], p=i[1])
             ])
 
         ## experimental extension

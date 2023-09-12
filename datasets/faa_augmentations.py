@@ -4,14 +4,17 @@ import torchvision.transforms as transforms
 import torch
 
 class FAAAugmentationsApply(object):
-    def __init__(self, img_size=32, aug=None):
+    def __init__(self, img_size=32, aug=None, policy_addr=None):
         if aug is None:
             augmentations.IMAGE_SIZE = img_size     ## Does not take into effect, change the value directly from the function inside augmentations.py
             self.aug_list = augmentations.augmentations
         else:
             self.aug_list = aug.augmentations
 
-        path = 'datasets/faster_autoaugment/policy_weights/19_mq_hq.pt'
+        if policy_addr == None:
+            path = 'datasets/faster_autoaugment/policy_weights/19_mq_hq.pt'
+        else:
+            path = policy_addr
         num_chunks = 16
 
         policy_weight = torch.load(path, map_location='cpu')
